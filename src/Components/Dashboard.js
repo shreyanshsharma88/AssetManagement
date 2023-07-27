@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import { Nav } from "./navBar";
 import { useGlobally } from "./globalToken";
@@ -114,7 +113,7 @@ export function Dashboard() {
                 <Nav />
 
 
-                <div style={{ display: 'flex', columnGap: '30px', marginTop: '100px', padding: '20px', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', columnGap: '30px', marginTop: '100px', padding: '20px', justifyContent: 'center', flexWrap:'wrap' }}>
 
                     <DisplayCards
                         cardImage={driveIcon}

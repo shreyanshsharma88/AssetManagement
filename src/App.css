@@ -39,6 +39,7 @@ border: 2px solid rgb(255, 255, 255);
 }
 .displayCard{
 
+
   width: 380px;
   height: 200px;
   flex-shrink: 0; 
@@ -81,4 +82,67 @@ flex-shrink: 0;
     left: 0;
     right: 0;
     
+}
+.assetList{
+overflow-x: auto;
+  margin-top: 180px;
+  filter: drop-shadow(0px 14px 30px rgba(0, 0, 0, 0.12)); 
+  background-color: #fdfdfd;
+  width: 95%;
+border-radius: 10px;
+flex-shrink: 0;
+height: 720px;
+}
+
+.searchBox{
+  width: 543px;
+height: 40px;
+  background-color: #fdfdfd;
+  border: 1px solid white;
+  padding: 5px;
+align-items: center;
+gap: 16px;
+align-self: stretch; 
+}
+.dropdowns{
+  background: white;
+  width: 113.718px;
+  height: 40px; 
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid white;
+}
+.assetList legend{
+  font-size: 15px;
+  font-weight: 100;
+}
+.assetList input:focus{
+  outline: none;
+}
+.assetHeader{
+  font-family: poppins;
+  color: rgb(102, 101, 101);
+  font-weight: 300;
+  font-size: 18px;
+
+  width: 100%;
+  background-color: #E0CCFC;
+  height: 70px;
+}
+.tableBody{
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableBody th ,.tableBody td{
+  font-family: poppins;
+  font-size: 15px;
+  font-weight: 300;
+  padding: 10px;
+  
+}
+
+.tableBody th{
+  font-weight: 600;
 }
