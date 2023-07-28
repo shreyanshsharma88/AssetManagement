@@ -4,8 +4,15 @@ import { Nav } from "./navBar";
 import CircularProgress from '@mui/material/CircularProgress';
 import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { Label } from "@mui/icons-material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+
+export function AddAssetOption({ setShowAddAsset }) {
+    return (
+        <div className="addAssetBox">
+            <h1>heloBitches</h1>
+        </div>
+    )
+}
 
 function DisplayAssets({ assetsData, setAssetsData }) {
     return (
@@ -54,7 +61,7 @@ function DisplayAssets({ assetsData, setAssetsData }) {
     )
 }
 
-function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData }) {
+function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData, setShowAddAsset }) {
 
     return (
         <div className="assetList">
@@ -113,7 +120,7 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
                         </select>
                     </fieldset>
 
-                    <div style={{ display: 'flex', color: 'white', backgroundColor: '#6200EE', alignItems: 'center', width: '170px', justifyContent: 'center', gap: '10px', borderRadius: '10px' }}>
+                    <div onClick={() => setShowAddAsset(true)} style={{ display: 'flex', color: 'white', backgroundColor: '#6200EE', alignItems: 'center', width: '170px', justifyContent: 'center', gap: '10px', borderRadius: '10px' }}>
 
                         <AddCircleOutlineIcon />
                         <div>Add Asset</div>
@@ -128,9 +135,9 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
 }
 
 
-export function AssetList() {
+export function AssetList({ setShowAddAsset }) {
 
-    const { assetsData, setAssetsData ,searchInput, setSearchInput} = useGlobally();
+    const { assetsData, setAssetsData, searchInput, setSearchInput } = useGlobally();
 
     if (!assetsData) {
         return (
@@ -146,7 +153,7 @@ export function AssetList() {
             <Nav />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-                <MakeAssetTable searchInput={searchInput} setSearchInput={setSearchInput} assetsData={assetsData} setAssetsData={setAssetsData} />
+                <MakeAssetTable searchInput={searchInput} setSearchInput={setSearchInput} assetsData={assetsData} setAssetsData={setAssetsData} setShowAddAsset={setShowAddAsset}/>
             </div>
 
 
