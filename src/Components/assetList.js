@@ -55,9 +55,7 @@ function DisplayAssets({ assetsData, setAssetsData }) {
 }
 
 function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData }) {
-    function handleSearch() {
-        
-    }
+
     return (
         <div className="assetList">
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', flexWrap: 'wrap', gap: '20px', marginLeft: '30px' }}>
@@ -73,7 +71,6 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
                         type='text'
                         onChange={(e) => {
                             setSearchInput(e.target.value);
-                            handleSearch()
 
                         }}
                     />
@@ -133,8 +130,7 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
 
 export function AssetList() {
 
-    const { assetsData, setAssetsData } = useGlobally();
-    const [searchInput, setSearchInput] = useState('');
+    const { assetsData, setAssetsData ,searchInput, setSearchInput} = useGlobally();
 
     if (!assetsData) {
         return (
