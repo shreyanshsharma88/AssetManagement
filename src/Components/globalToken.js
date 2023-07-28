@@ -59,7 +59,7 @@ export function AccessToken({ children }) {
                 var params = {
                     name: searchInput
                 }
-                const res = await fetch(`https://devassetapi.remotestate.com/asset-management/user/asset?limit=10&${new URLSearchParams(params).toString()}&warranty=&available=&assigned=false&deleted=false&assetType=&page=0`,
+                 const res = await fetch(`https://devassetapi.remotestate.com/asset-management/user/asset?limit=10&${new URLSearchParams(params).toString()}&warranty=&available=&assigned=false&deleted=false&assetType=&page=0`,
                     
                     {
                         method: 'GET',

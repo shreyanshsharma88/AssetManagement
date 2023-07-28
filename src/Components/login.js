@@ -8,6 +8,8 @@ import { useGlobally } from './globalToken';
 
 export function LoginPage() {
     const { setToken } = useGlobally()
+    setToken('');
+    localStorage.removeItem('token')
     const navigate = useNavigate('')
     const [credentials, setCredentials] = useState({
         email: '',

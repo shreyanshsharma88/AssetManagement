@@ -6,9 +6,6 @@ import { AccessToken } from './Components/globalToken'
 import { AddAssetOption, AssetList } from './Components/assetList';
 import { useState } from 'react';
 function App() {
-  const [showAddAsset, setShowAddAsset] = useState(false)
-
-  console.log(showAddAsset)
   return (
     <div className="App">
 
@@ -16,13 +13,10 @@ function App() {
         <Routes>
           <Route path='/' element={<LoginPage />}></Route>
           <Route path='/dashboard' element={<Dashboard />}></Route>
-          <Route path='/dashboard/assetList' element={<AssetList setShowAddAsset={setShowAddAsset} />}></Route>
+          <Route path='/dashboard/assetList' element={<AssetList />}></Route>
         </Routes>
       </AccessToken>
-      <div style={{display:'flex',alignItems:'center' , justifyContent:'center'}}>
-
-      {showAddAsset && <AddAssetOption setShowAddAsset={setShowAddAsset} />}
-      </div>
+      
     </div>
   );
 }

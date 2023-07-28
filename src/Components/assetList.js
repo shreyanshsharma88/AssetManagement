@@ -6,11 +6,84 @@ import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Cancel';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-export function AddAssetOption({ setShowAddAsset }) {
+export function AddAssetOption({ setShowAddAsset, moreDropdowns, setMoreDropdowns, selectVal, setSelectVal }) {
+    function MoreDropdowns() {
+        let moreInputs = []
+        if (selectVal === 'laptop') {
+            moreInputs = ['Make', 'Model', 'Serial Number', 'Series', 'Warranty Start', 'Warranty Expiry', 'RAM', 'Processor', 'Screen Resolution', 'Op System', 'Date of Purchase']
+
+        }
+        if (selectVal === 'mouse') {
+            moreInputs = ['Make', 'Model', 'Serial Number', 'Warranty Start', 'Warranty Expiry']
+        }
+        if (selectVal === 'pendrive') {
+            moreInputs = ['Make', 'Model', 'Serial Number', 'Storage', 'Warranty Start', 'Warranty Expiry', 'Date Of Purchase']
+
+        }
+        if (selectVal === 'harddrive') {
+            moreInputs = ['Make', 'Model', 'Serial Number', 'Storage', 'Warranty Start', 'Warranty Expiry', 'Date Of Purchase']
+
+
+        }
+        if (selectVal === 'mobile') {
+            moreInputs = ['Make', 'Model', 'RAM', 'OS type', 'IMEI num-1', 'IMEI num-2', 'Serial Number', 'Warranty Start', 'Warranty Expiry', 'Date Of Purchase']
+
+
+        }
+        if (selectVal === 'simcard') {
+            moreInputs = ['Make', 'SIM number', 'Mobile Number', 'Date Of Purchase']
+
+
+        }
+        console.log(moreInputs)
+
+        return (
+            <div>
+                {
+                    moreInputs.map((inputs) => {
+                        return (
+                            <div>
+                                {inputs}
+                                <input type='text' />
+                            </div>
+
+                        )
+                    })
+                }
+
+            </div>
+        )
+    }
     return (
-        <div className="addAssetBox">
-            <h1>heloBitches</h1>
-        </div>
+        <>
+            <div className="addAssetBox">
+                <div >
+
+                    <h1 style={{ color: '#6200EE', fontFamily: 'poppins', float: 'left', padding: '10px', marginLeft: '20px' }}>Add Asset</h1>
+                    <CancelIcon style={{ float: 'right', padding: '12px' }} onClick={() => {
+                        setShowAddAsset(false)
+                        setMoreDropdowns(false)
+                    }} />
+                </div>
+                <div style={{ display: 'grid', rowGap: '10px' }}>
+                    <div>Assign Asset</div>
+                    <select onChange={(e) => {
+                        setSelectVal(e.target.value)
+                        setMoreDropdowns(true)
+                    }} className="addAssetDropdown">
+
+                        <option hidden value="">None</option>
+                        <option value="laptop">Laptop</option>
+                        <option value="mouse">Mouse</option>
+                        <option value="pendrive">Pen Drive</option>
+                        <option value="harddrive">Hard Drive</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="simcard">SIM Card</option>
+                    </select>
+                    {moreDropdowns && <MoreDropdowns />}
+                </div>
+            </div>
+        </>
     )
 }
 
@@ -61,7 +134,7 @@ function DisplayAssets({ assetsData, setAssetsData }) {
     )
 }
 
-function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData, setShowAddAsset }) {
+function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData, setShowAddAsset, showAddAsset, setMoreDropdowns }) {
 
     return (
         <div className="assetList">
@@ -120,7 +193,15 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
                         </select>
                     </fieldset>
 
-                    <div onClick={() => setShowAddAsset(true)} style={{ display: 'flex', color: 'white', backgroundColor: '#6200EE', alignItems: 'center', width: '170px', justifyContent: 'center', gap: '10px', borderRadius: '10px' }}>
+                    <div onClick={() => {
+                        setMoreDropdowns(false)
+                        if (showAddAsset) {
+                            setShowAddAsset(false)
+                        }
+                        else {
+                            setShowAddAsset(true)
+                        }
+                    }} style={{ display: 'flex', color: 'white', backgroundColor: '#6200EE', alignItems: 'center', width: '170px', justifyContent: 'center', gap: '10px', borderRadius: '10px' }}>
 
                         <AddCircleOutlineIcon />
                         <div>Add Asset</div>
@@ -135,7 +216,10 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
 }
 
 
-export function AssetList({ setShowAddAsset }) {
+export function AssetList() {
+    const [showAddAsset, setShowAddAsset] = useState(false);
+    const [moreDropdowns, setMoreDropdowns] = useState(false);
+    const [selectVal, setSelectVal] = useState('');
 
     const { assetsData, setAssetsData, searchInput, setSearchInput } = useGlobally();
 
@@ -148,12 +232,17 @@ export function AssetList({ setShowAddAsset }) {
         )
     }
 
+    console.log(selectVal)
     return (
         <div>
             <Nav />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-                <MakeAssetTable searchInput={searchInput} setSearchInput={setSearchInput} assetsData={assetsData} setAssetsData={setAssetsData} setShowAddAsset={setShowAddAsset}/>
+                <MakeAssetTable searchInput={searchInput} setSearchInput={setSearchInput} assetsData={assetsData} setAssetsData={setAssetsData} setShowAddAsset={setShowAddAsset} showAddAsset={showAddAsset} setMoreDropdowns={setMoreDropdowns} />
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '-350px' }}>
+
+                {showAddAsset && <AddAssetOption setShowAddAsset={setShowAddAsset} moreDropdowns={moreDropdowns} setMoreDropdowns={setMoreDropdowns} selectVal={selectVal} setSelectVal={setSelectVal} />}
             </div>
 
 

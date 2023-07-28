@@ -148,13 +148,30 @@ align-self: stretch;
 }
 
 .addAssetBox{
+
+  display: flex;
+  flex-direction: column;
   z-index: 100;
-  box-shadow:  0px 4px 4px 0px rgba(0, 0, 0, 0.24);
+  box-shadow:
+    inset 0 -3em 3em rgba(0, 0, 0, 0.1),
+    0 0 0 2px rgb(255, 255, 255),
+    3em 3em 3em 130em rgba(0, 0, 0, 0.3);
+
 position: fixed;
 
-  width: 558px;
-height: 591px; 
+  width: 658px;
+height: 291px; 
 border-radius: 10px;
 background-color: white;
 
+}
+.addAssetDropdown{
+  
+  width:80%;
+  height: 60px;
+  background-color: #eae4f3;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin-left: 60px;
+  
 }
