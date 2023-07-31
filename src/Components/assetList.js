@@ -38,10 +38,10 @@ export function AddAssetOption({ setShowAddAsset, moreDropdowns, setMoreDropdown
                         <option hidden value="">None</option>
                         <option value="laptop">Laptop</option>
                         <option value="mouse">Mouse</option>
-                        <option value="pendrive">Pen Drive</option>
-                        <option value="harddrive">Hard Drive</option>
+                        <option value="pen drive">Pen Drive</option>
+                        <option value="hard drive">Hard Drive</option>
                         <option value="mobile">Mobile</option>
-                        <option value="simcard">SIM Card</option>
+                        <option value="sim card">SIM Card</option>
                     </select>
                     {moreDropdowns && <MoreDropdowns />}
                 </div>
