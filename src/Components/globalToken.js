@@ -8,6 +8,9 @@ export function AccessToken({ children }) {
     const [data, setData] = useState();
     const [assetsData, setAssetsData] = useState();
     const [searchInput, setSearchInput] = useState('');
+    const [selectVal, setSelectVal] = useState('');
+    const [moreDropdowns, setMoreDropdowns] = useState(false);
+
 
     //For dashBoard data
     useEffect(() => {
@@ -88,7 +91,7 @@ export function AccessToken({ children }) {
     console.log(assetsData)
 console.log(searchInput)
     return (
-        <globalTokenContext.Provider value={{ token, setToken, data, assetsData, setAssetsData, searchInput, setSearchInput }}>
+        <globalTokenContext.Provider value={{ token, setToken, data, assetsData, setAssetsData, searchInput, setSearchInput, selectVal,setSelectVal, moreDropdowns,setMoreDropdowns }}>
             {children}
         </globalTokenContext.Provider>
     );

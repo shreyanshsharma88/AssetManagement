@@ -5,10 +5,11 @@ import { Dashboard } from './Components/Dashboard';
 import { AccessToken } from './Components/globalToken'
 import { AddAssetOption, AssetList } from './Components/assetList';
 import { useState } from 'react';
+import { Nav } from './Components/navBar';
 function App() {
   return (
     <div className="App">
-
+{/* <Nav/> */}
       <AccessToken>
         <Routes>
           <Route path='/' element={<LoginPage />}></Route>

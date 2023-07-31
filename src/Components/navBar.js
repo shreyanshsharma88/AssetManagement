@@ -2,8 +2,15 @@ import { useNavigate } from 'react-router-dom'
 import '../App.css'
 import companyIcn from '../images/companyIcon.png'
 import usrImg from '../images/userImage.png'
+import { useLocation } from 'react-router-dom'
 export function Nav() {
-    const navigate = useNavigate('')
+    const navigate = useNavigate('');
+//     const location = useLocation();
+//   const isLoginPage = location.pathname === '/';
+
+//   if (isLoginPage) {
+//     return null; // Don't display the navbar on the login page
+//   }
     return (
         <div className='navBar'>
             <div>
@@ -19,11 +26,11 @@ export function Nav() {
             </div>
 
             <div style={{ display: 'flex', columnGap: '50px', alignItems: 'center' }}>
-                <p onClick={() => {
+                <p  onClick={() => {
                     navigate('/dashboard/assetList')
                 }} style={{ fontFamily: 'poppins' }}>Asset List</p>
-                <p style={{ fontFamily: 'poppins' }}>Employer List</p>
-                <p style={{ fontFamily: 'poppins' }}>Accessed By</p>
+                <p  style={{ fontFamily: 'poppins' }}>Employer List</p>
+                <p  style={{ fontFamily: 'poppins' }}>Accessed By</p>
             </div>
 
 

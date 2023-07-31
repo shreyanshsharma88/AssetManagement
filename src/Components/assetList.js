@@ -5,57 +5,20 @@ import CircularProgress from '@mui/material/CircularProgress';
 import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Cancel';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { DisplayForm } from "./modals/addMoreDropdowns";
+
+
 
 export function AddAssetOption({ setShowAddAsset, moreDropdowns, setMoreDropdowns, selectVal, setSelectVal }) {
     function MoreDropdowns() {
-        let moreInputs = []
-        if (selectVal === 'laptop') {
-            moreInputs = ['Make', 'Model', 'Serial Number', 'Series', 'Warranty Start', 'Warranty Expiry', 'RAM', 'Processor', 'Screen Resolution', 'Op System', 'Date of Purchase']
 
-        }
-        if (selectVal === 'mouse') {
-            moreInputs = ['Make', 'Model', 'Serial Number', 'Warranty Start', 'Warranty Expiry']
-        }
-        if (selectVal === 'pendrive') {
-            moreInputs = ['Make', 'Model', 'Serial Number', 'Storage', 'Warranty Start', 'Warranty Expiry', 'Date Of Purchase']
-
-        }
-        if (selectVal === 'harddrive') {
-            moreInputs = ['Make', 'Model', 'Serial Number', 'Storage', 'Warranty Start', 'Warranty Expiry', 'Date Of Purchase']
-
-
-        }
-        if (selectVal === 'mobile') {
-            moreInputs = ['Make', 'Model', 'RAM', 'OS type', 'IMEI num-1', 'IMEI num-2', 'Serial Number', 'Warranty Start', 'Warranty Expiry', 'Date Of Purchase']
-
-
-        }
-        if (selectVal === 'simcard') {
-            moreInputs = ['Make', 'SIM number', 'Mobile Number', 'Date Of Purchase']
-
-
-        }
-        console.log(moreInputs)
 
         return (
-            <div>
-                {
-                    moreInputs.map((inputs) => {
-                        return (
-                            <div>
-                                {inputs}
-                                <input type='text' />
-                            </div>
-
-                        )
-                    })
-                }
-
-            </div>
+            <DisplayForm/>
         )
     }
     return (
-        <>
+        
             <div className="addAssetBox">
                 <div >
 
@@ -65,7 +28,7 @@ export function AddAssetOption({ setShowAddAsset, moreDropdowns, setMoreDropdown
                         setMoreDropdowns(false)
                     }} />
                 </div>
-                <div style={{ display: 'grid', rowGap: '10px' }}>
+                <div style={{ display: 'grid' }}>
                     <div>Assign Asset</div>
                     <select onChange={(e) => {
                         setSelectVal(e.target.value)
@@ -83,13 +46,13 @@ export function AddAssetOption({ setShowAddAsset, moreDropdowns, setMoreDropdown
                     {moreDropdowns && <MoreDropdowns />}
                 </div>
             </div>
-        </>
+        
     )
 }
 
 function DisplayAssets({ assetsData, setAssetsData }) {
     return (
-        <div>
+        <div >
             <table className="tableBody">
                 <thead className="assetHeader">
                     <tr>
@@ -154,7 +117,7 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
 
                         }}
                     />
-                    <CancelIcon />
+                    <CancelIcon  />
                 </div>
                 <div style={{ width: '300px' }}></div>
                 <div style={{ display: 'flex', gap: '35px', marginRight: '30px' }}>
@@ -218,10 +181,8 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
 
 export function AssetList() {
     const [showAddAsset, setShowAddAsset] = useState(false);
-    const [moreDropdowns, setMoreDropdowns] = useState(false);
-    const [selectVal, setSelectVal] = useState('');
 
-    const { assetsData, setAssetsData, searchInput, setSearchInput } = useGlobally();
+    const { assetsData, setAssetsData, searchInput, setSearchInput, selectVal, setSelectVal, moreDropdowns, setMoreDropdowns } = useGlobally();
 
     if (!assetsData) {
         return (
@@ -235,12 +196,14 @@ export function AssetList() {
     console.log(selectVal)
     return (
         <div>
-            <Nav />
+            <Nav/>
+
+
             <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                 <MakeAssetTable searchInput={searchInput} setSearchInput={setSearchInput} assetsData={assetsData} setAssetsData={setAssetsData} setShowAddAsset={setShowAddAsset} showAddAsset={showAddAsset} setMoreDropdowns={setMoreDropdowns} />
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '-350px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '-450px' }}>
 
                 {showAddAsset && <AddAssetOption setShowAddAsset={setShowAddAsset} moreDropdowns={moreDropdowns} setMoreDropdowns={setMoreDropdowns} selectVal={selectVal} setSelectVal={setSelectVal} />}
             </div>

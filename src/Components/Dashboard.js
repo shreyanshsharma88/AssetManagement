@@ -110,9 +110,9 @@ export function Dashboard() {
             <div style={{ display: 'grid', justifyContent: 'center', padding: '20px'
             //  , backgroundColor:'#F2F2F7 '
          }}>
-                <Nav />
 
 
+<Nav/>
                 <div style={{ display: 'flex', columnGap: '30px', marginTop: '100px', padding: '20px', justifyContent: 'center', flexWrap:'wrap' }}>
 
                     <DisplayCards

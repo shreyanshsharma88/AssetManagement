@@ -1,0 +1,38 @@
+.commonDiv{
+    display:flex;
+     padding:8px ;
+    
+      justify-content: space-between;
+      text-align: start;
+      margin-right: 35px;
+      
+}
+
+.commonDiv input{
+    
+    background-color: #e7e4eb;
+    padding: 20px;
+    width: 100%;
+    border-radius: 15px;
+    border: 0.5px solid rgb(255, 255, 255);
+
+}
+.commonDiv select{
+
+    background-color: #e7e4eb;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid white;
+    width: 300px;
+}
+.commonDiv input,select.focus{
+    outline: none;
+}
+.laptopDropdowns{
+    display:flex;
+     flex-direction:column;
+      align-items:center;
+       padding:10px;
+       justify-content: center;
+
+}
