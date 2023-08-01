@@ -6,53 +6,75 @@ import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Cancel';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { DisplayForm } from "./modals/addMoreDropdowns";
+import ToggleButton from '@mui/material/ToggleButton';
+import CreateIcon from '@mui/icons-material/Create';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
-export function AddAssetOption({ setShowAddAsset, moreDropdowns, setMoreDropdowns, selectVal, setSelectVal }) {
-    function MoreDropdowns() {
 
-
-        return (
-            <DisplayForm/>
-        )
-    }
+function ActionBox() {
     return (
-        
-            <div className="addAssetBox">
-                <div >
-
-                    <h1 style={{ color: '#6200EE', fontFamily: 'poppins', float: 'left', padding: '10px', marginLeft: '20px' }}>Add Asset</h1>
-                    <CancelIcon style={{ float: 'right', padding: '12px' }} onClick={() => {
-                        setShowAddAsset(false)
-                        setMoreDropdowns(false)
-                    }} />
-                </div>
-                <div style={{ display: 'grid' }}>
-                    <div>Assign Asset</div>
-                    <select onChange={(e) => {
-                        setSelectVal(e.target.value)
-                        setMoreDropdowns(true)
-                    }} className="addAssetDropdown">
-
-                        <option hidden value="">None</option>
-                        <option value="laptop">Laptop</option>
-                        <option value="mouse">Mouse</option>
-                        <option value="pen drive">Pen Drive</option>
-                        <option value="hard drive">Hard Drive</option>
-                        <option value="mobile">Mobile</option>
-                        <option value="sim card">SIM Card</option>
-                    </select>
-                    {moreDropdowns && <MoreDropdowns />}
-                </div>
+        <div className="actionBox">
+            <div className="edit-delete"  style={{display:'flex', color: 'green', fontWeight: '400' }}>
+                <CreateIcon fontSize="small"/>
+                Edit
             </div>
-        
+            <div className="edit-delete" style={{ display:'flex',color: 'red', fontWeight: '400' }}>
+                <DeleteIcon fontSize="small"/>
+                Delete
+            </div>
+
+        </div>
     )
 }
 
-function DisplayAssets({ assetsData, setAssetsData }) {
+export function AddAssetOption({ setShowAddAsset, moreDropdowns, setMoreDropdowns, selectVal, setSelectVal }) {
+    function MoreDropdowns() {
+        return (
+            <DisplayForm />
+        )
+    }
     return (
-        <div >
+
+        <div className="addAssetBox">
+
+            <div >
+
+                <h1 style={{ color: '#6200EE', fontFamily: 'poppins', float: 'left', padding: '10px', marginLeft: '20px' }}>Add Asset</h1>
+                <CancelIcon style={{ float: 'right', padding: '12px' }} onClick={() => {
+                    setShowAddAsset(false)
+                    setMoreDropdowns(false)
+                }} />
+            </div>
+            <div style={{ display: 'grid' }}>
+                <div>Assign Asset</div>
+                <select onChange={(e) => {
+                    setSelectVal(e.target.value)
+                    setMoreDropdowns(true)
+                }} className="addAssetDropdown">
+
+                    <option hidden value="">None</option>
+                    <option value="laptop">Laptop</option>
+                    <option value="mouse">Mouse</option>
+                    <option value="pen drive">Pen Drive</option>
+                    <option value="hard disk">Hard Drive</option>
+                    <option value="mobile">Mobile</option>
+                    <option value="sim">SIM Card</option>
+                </select>
+                {moreDropdowns && <MoreDropdowns />}
+            </div>
+        </div>
+
+    )
+}
+
+function DisplayAssets({ assetsData, setAssetsData, action, setAction, selectKey, setSelectKey }) {
+    return (
+        <div style={{
+            // overflow: 'scroll',
+            // maxHeight: '500px'
+        }} >
             <table className="tableBody">
                 <thead className="assetHeader">
                     <tr>
@@ -65,13 +87,17 @@ function DisplayAssets({ assetsData, setAssetsData }) {
                         <th>Warranty Expires</th>
                         <th>Assigned To</th>
                         <th>Action</th>
+
+
+
                     </tr>
 
                 </thead>
                 <tbody>
                     {assetsData.map((item) => {
                         return (<>
-                            <tr>
+                            <tr key={item.id} >
+
                                 <td>{item.brand}</td>
 
                                 <td>{item.model}</td>
@@ -87,7 +113,28 @@ function DisplayAssets({ assetsData, setAssetsData }) {
                                 <td>{item.warrantyExpiryDate}</td>
 
                                 <td>{item.assignedTo}</td>
+
+
+
+                                <td style={{ display: 'flex' }}>
+                                {action && selectKey === item.id && <ActionBox />}
+                                    
+                                    <ToggleButton
+                                        sx={{ width: '50px', height: '50px', zIndex: '1' }}
+                                        onClick={() => {
+                                            console.log(item.id)
+                                            if (action) {
+                                                setAction(false)
+                                            }
+                                            else {
+                                                setAction(true)
+                                            }
+                                            setSelectKey(item.id)
+                                        }} value="web">...</ToggleButton>
+                                </td>
+
                             </tr>
+
                         </>
                         )
                     })}
@@ -97,10 +144,11 @@ function DisplayAssets({ assetsData, setAssetsData }) {
     )
 }
 
-function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData, setShowAddAsset, showAddAsset, setMoreDropdowns }) {
-
+function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData, setShowAddAsset, showAddAsset, setMoreDropdowns, action, setAction, selectKey, setSelectKey }) {
+console.log(selectKey)
     return (
         <div className="assetList">
+
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', flexWrap: 'wrap', gap: '20px', marginLeft: '30px' }}>
                 <div style={{ borderBottom: '1px solid rgb(15, 15, 15)', height: '55px', display: 'flex', alignItems: 'center' }}>
                     <SearchIcon fontSize="large" />
@@ -117,7 +165,7 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
 
                         }}
                     />
-                    <CancelIcon  />
+                    <CancelIcon />
                 </div>
                 <div style={{ width: '300px' }}></div>
                 <div style={{ display: 'flex', gap: '35px', marginRight: '30px' }}>
@@ -173,7 +221,7 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
                 </div>
             </div>
 
-            <DisplayAssets assetsData={assetsData} setAssetsData={setAssetsData} />
+            <DisplayAssets assetsData={assetsData} setAssetsData={setAssetsData} action={action} setAction={setAction} selectKey={selectKey} setSelectKey={setSelectKey} />
         </div>
     )
 }
@@ -181,7 +229,8 @@ function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData
 
 export function AssetList() {
     const [showAddAsset, setShowAddAsset] = useState(false);
-
+    const [action, setAction] = useState(false)
+    const [selectKey, setSelectKey] = useState('')
     const { assetsData, setAssetsData, searchInput, setSearchInput, selectVal, setSelectVal, moreDropdowns, setMoreDropdowns } = useGlobally();
 
     if (!assetsData) {
@@ -196,18 +245,17 @@ export function AssetList() {
     console.log(selectVal)
     return (
         <div>
-            <Nav/>
+            <Nav />
 
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-                <MakeAssetTable searchInput={searchInput} setSearchInput={setSearchInput} assetsData={assetsData} setAssetsData={setAssetsData} setShowAddAsset={setShowAddAsset} showAddAsset={showAddAsset} setMoreDropdowns={setMoreDropdowns} />
+                <MakeAssetTable searchInput={searchInput} setSearchInput={setSearchInput} assetsData={assetsData} setAssetsData={setAssetsData} setShowAddAsset={setShowAddAsset} showAddAsset={showAddAsset} setMoreDropdowns={setMoreDropdowns} action={action} setAction={setAction} selectKey={selectKey} setSelectKey={setSelectKey} />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '-450px' }}>
 
                 {showAddAsset && <AddAssetOption setShowAddAsset={setShowAddAsset} moreDropdowns={moreDropdowns} setMoreDropdowns={setMoreDropdowns} selectVal={selectVal} setSelectVal={setSelectVal} />}
             </div>
-
 
         </div>
     )

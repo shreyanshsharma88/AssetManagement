@@ -95,6 +95,7 @@ overflow-x: auto; */
 }
 .assetList{
 
+overflow: scroll;
   margin-top: 180px;
   filter: drop-shadow(0px 14px 30px rgba(0, 0, 0, 0.12)); 
   background-color: #fafafa;
@@ -107,7 +108,7 @@ height: 720px;
 .searchBox{
   width: 543px;
 height: 40px;
-  background-color: #fdfdfd;
+  background-color: #fafafa;
   border: 1px solid white;
   padding: 5px;
 align-items: center;
@@ -140,7 +141,7 @@ align-self: stretch;
   height: 70px;
 }
 .tableBody{
-  /* overflow-x: scroll; */
+  overflow: scroll;
   margin-top: 30px;
   width: 100%;
   border-collapse: collapse;
@@ -186,4 +187,32 @@ padding: 10px;
   border-radius: 10px;
   margin-left: 0px;
   
+}
+.actionBox{
+  
+  z-index: 10;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 70px;
+  width: 140px;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 8px;
+box-shadow: 20px 18px 8px 5px rgba(0, 0, 0, 0.10);
+margin-left: -150px;
+margin-top:10px;
+
+}
+.edit-delete:hover{
+  cursor: pointer;
+
+}
+.navBar-options:hover{
+  cursor: pointer;
+
 }

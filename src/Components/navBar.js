@@ -26,11 +26,11 @@ export function Nav() {
             </div>
 
             <div style={{ display: 'flex', columnGap: '50px', alignItems: 'center' }}>
-                <p  onClick={() => {
+                <p className='navBar-options'  onClick={() => {
                     navigate('/dashboard/assetList')
                 }} style={{ fontFamily: 'poppins' }}>Asset List</p>
-                <p  style={{ fontFamily: 'poppins' }}>Employer List</p>
-                <p  style={{ fontFamily: 'poppins' }}>Accessed By</p>
+                <p className='navBar-options'  style={{ fontFamily: 'poppins' }}>Employer List</p>
+                <p className='navBar-options'  style={{ fontFamily: 'poppins' }}>Accessed By</p>
             </div>
 
 
