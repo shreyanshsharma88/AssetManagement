@@ -48,13 +48,16 @@ function ActionBox() {
     return (
         <div className="actionBox">
             <div
-                onClick={
-                    () => {
-                        fetchData();
+                onClick={async () => {
+                    try {
+                        await fetchData();
                         setShowAddAsset(true);
-                        setMoreDropdowns(true)
+                        setMoreDropdowns(true);
+                    } catch (error) {
+                        console.log(error)
+                        // Handle error if needed
                     }
-                }
+                }}
                 className="edit-delete" style={{ display: 'flex', color: 'green', fontWeight: '400' }}>
                 <CreateIcon fontSize="small" />
                 Edit

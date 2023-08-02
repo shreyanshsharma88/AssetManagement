@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGlobally } from "../globalToken";
 import Switch from "@mui/material/Switch";
 import "./modal.css";
@@ -23,15 +23,17 @@ function DisplayLaptopForm({
     setShowClient,
     handleInputChange,
     handleSubmit,
-    editData
+    editData,
+    handleUpdate
 }) {
+    const { setShowAddAsset } = useGlobally()
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
             <form>
                 <div className="commonDiv">
                     <div style={{ float: "left" }}>
                         <div>Owned By</div>
-                        <select  name="ownedBy" onChange={handleInputChange}>
+                        <select name="ownedBy" onChange={handleInputChange}>
                             <option value="" hidden>None</option>
                             <option value='remote_state' onClick={() => setShowClient(false)}>RemoteState</option>
                             <option value="client" onClick={() => setShowClient(true)}>Client</option>
@@ -44,7 +46,7 @@ function DisplayLaptopForm({
                     <div>
                         <div>Make</div>
                         <input
-                            value={editData?editData[0].brand : ""}
+                            //value={editData ? editData[0].brand : ''}
                             name="brand"
                             placeholder="enter brand name"
                             type="text"
@@ -136,10 +138,16 @@ function DisplayLaptopForm({
                     >
                         Cancel{" "}
                     </Button>
-                    <Button onClick={() => {
-                        handleSubmit();
-                        setMoreDropdowns(false)
-                    }} variant="contained">Save </Button>
+
+
+                    <Button
+                        onClick={() => {
+                            editData ? handleUpdate() : handleSubmit();
+                            setMoreDropdowns(false)
+                            setShowAddAsset(false)
+
+
+                        }} variant="contained"> {editData ? "Edit" : "Save"} </Button>
                 </div>
             </form>
         </div>
@@ -155,8 +163,11 @@ function DisplayMouseForm({
     setShowClient,
     handleInputChange,
     handleSubmit,
-    editData
+    editData,
+    handleUpdate
+
 }) {
+    const { setShowAddAsset } = useGlobally;
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
             <div className="commonDiv">
@@ -218,10 +229,13 @@ function DisplayMouseForm({
                 >
                     Cancel{" "}
                 </Button>
-                <Button onClick={() => {
-                    handleSubmit()
-                    setMoreDropdowns(false)
-                }} variant="contained">Save </Button>
+
+                <Button
+                    onClick={() => {
+                        editData ? handleUpdate() : handleSubmit();
+                        setMoreDropdowns(false);
+                        setShowAddAsset(false)
+                    }} variant="contained"> {editData ? "Edit" : "Save"} </Button>
             </div>
         </div>
     );
@@ -236,8 +250,11 @@ function DisplayPendriveForm({
     setShowClient,
     handleInputChange,
     handleSubmit,
-    editData
+    editData,
+    handleUpdate
+
 }) {
+    const { setShowAddAsset } = useGlobally()
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
             <div className="commonDiv">
@@ -311,10 +328,15 @@ function DisplayPendriveForm({
                 >
                     Cancel{" "}
                 </Button>
-                <Button onClick={() => {
-                    handleSubmit()
-                    setMoreDropdowns(false)
-                }} variant="contained">Save </Button>
+
+                <Button
+                    onClick={() => {
+                        editData ? handleUpdate() : handleSubmit();
+                        setMoreDropdowns(false)
+                        setShowAddAsset(false)
+
+
+                    }} variant="contained"> {editData ? "Edit" : "Save"} </Button>
             </div>
         </div>
     );
@@ -329,8 +351,11 @@ function DisplayHarddiskForm({
     setShowClient,
     handleInputChange,
     handleSubmit,
-    editData
+    editData,
+    handleUpdate
+
 }) {
+    const { setShowAddAsset } = useGlobally()
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
             <div className="commonDiv">
@@ -404,10 +429,15 @@ function DisplayHarddiskForm({
                 >
                     Cancel{" "}
                 </Button>
-                <Button onClick={() => {
-                    handleSubmit();
-                    setMoreDropdowns(false)
-                }} variant="contained">Save </Button>
+
+                <Button
+                    onClick={() => {
+                        editData ? handleUpdate() : handleSubmit();
+                        setMoreDropdowns(false)
+                        setShowAddAsset(false)
+
+
+                    }} variant="contained"> {editData ? "Edit" : "Save"} </Button>
             </div>
         </div>
     );
@@ -422,8 +452,11 @@ function DisplayMobileForm({
     setShowClient,
     handleInputChange,
     handleSubmit,
-    editData
+    editData,
+    handleUpdate
+
 }) {
+    const { setShowAddAsset } = useGlobally()
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
             <div className="commonDiv">
@@ -441,19 +474,19 @@ function DisplayMobileForm({
             <div className="commonDiv">
                 <div>
                     <div>Make</div>
-                    <input onChange={handleInputChange}name="brand" placeholder="Enter brand name" type="text" />
+                    <input onChange={handleInputChange} name="brand" placeholder="Enter brand name" type="text" />
                 </div>
 
                 <div>
                     <div>Model</div>
-                    <input onChange={handleInputChange}name="model" placeholder="Enter model name" type="text" />
+                    <input onChange={handleInputChange} name="model" placeholder="Enter model name" type="text" />
                 </div>
             </div>
 
             <div className="commonDiv">
                 <div>
                     <div>RAM</div>
-                    <input onChange={handleInputChange}name="model" placeholder="Enter RAM" type="text" />
+                    <input onChange={handleInputChange} name="model" placeholder="Enter RAM" type="text" />
                 </div>
 
                 <div>
@@ -470,36 +503,36 @@ function DisplayMobileForm({
             <div className="commonDiv">
                 <div>
                     <div>IMEI Number 1</div>
-                    <input onChange={handleInputChange}name="imeiNumber1"placeholder="Enter IMEI number 1" type="text" />
+                    <input onChange={handleInputChange} name="imeiNumber1" placeholder="Enter IMEI number 1" type="text" />
                 </div>
 
                 <div>
                     <div>IMEI Number 2</div>
-                    <input onChange={handleInputChange}name="imeiNumber2"placeholder="Enter IMEI number 2" type="text" />
+                    <input onChange={handleInputChange} name="imeiNumber2" placeholder="Enter IMEI number 2" type="text" />
                 </div>
             </div>
 
             <div className="commonDiv">
                 <div>
                     <div>Date of Purchase</div>
-                    <input onChange={handleInputChange}name="purchasedDate"type="date" />
+                    <input onChange={handleInputChange} name="purchasedDate" type="date" />
                 </div>
 
                 <div>
                     <div>Serial Number</div>
-                    <input onChange={handleInputChange}name="serialNo"placeholder="Enter serial number" type="text" />
+                    <input onChange={handleInputChange} name="serialNo" placeholder="Enter serial number" type="text" />
                 </div>
             </div>
 
             <div className="commonDiv">
                 <div>
                     <div>Warranty Start</div>
-                    <input onChange={handleInputChange}name="warrantyStartDate"type="date" />
+                    <input onChange={handleInputChange} name="warrantyStartDate" type="date" />
                 </div>
 
                 <div>
                     <div>Warranty Expiry</div>
-                    <input onChange={handleInputChange}name="warrantyExpiryDate"type="date" />
+                    <input onChange={handleInputChange} name="warrantyExpiryDate" type="date" />
                 </div>
             </div>
             <div
@@ -517,10 +550,15 @@ function DisplayMobileForm({
                 >
                     Cancel{" "}
                 </Button>
-                <Button onClick={() => {
-                    handleSubmit();
-                    setMoreDropdowns(false)
-                }} variant="contained">Save </Button>
+
+                <Button
+                    onClick={() => {
+                        editData ? handleUpdate() : handleSubmit();
+                        setMoreDropdowns(false)
+                        setShowAddAsset(false)
+
+
+                    }} variant="contained"> {editData ? "Edit" : "Save"} </Button>
             </div>
         </div>
     );
@@ -535,9 +573,12 @@ function DisplaySIMForm({
     setShowClient,
     handleInputChange,
     handleSubmit,
-    editData
+    editData,
+    handleUpdate
+
 
 }) {
+    const { setShowAddAsset } = useGlobally()
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
             <div className="commonDiv">
@@ -555,24 +596,24 @@ function DisplaySIMForm({
             <div className="commonDiv">
                 <div>
                     <div>Make</div>
-                    <input onChange={handleInputChange}name="brand"placeholder="Enter brand name" type="text" />
+                    <input onChange={handleInputChange} name="brand" placeholder="Enter brand name" type="text" />
                 </div>
 
                 <div>
                     <div>SIM Card Number</div>
-                    <input onChange={handleInputChange}name="simNo"placeholder="Enter SIM number" type="text" />
+                    <input onChange={handleInputChange} name="simNo" placeholder="Enter SIM number" type="text" />
                 </div>
             </div>
 
             <div className="commonDiv">
                 <div>
                     <div>Mobile Number Number</div>
-                    <input onChange={handleInputChange}name="phoneNo"placeholder="Enter mobile number" type="text" />
+                    <input onChange={handleInputChange} name="phoneNo" placeholder="Enter mobile number" type="text" />
                 </div>
 
                 <div>
                     <div>Date Of Purchase</div>
-                    <input onChange={handleInputChange}name="purchasedDate"type="date" />
+                    <input onChange={handleInputChange} name="purchasedDate" type="date" />
                 </div>
             </div>
 
@@ -591,17 +632,22 @@ function DisplaySIMForm({
                 >
                     Cancel{" "}
                 </Button>
-                <Button onClick={() => {
-                    handleSubmit();
-                    setMoreDropdowns(false)
-                }}variant="contained">Save </Button>
+
+                <Button
+                    onClick={() => {
+                        editData ? handleUpdate() : handleSubmit();
+                        setMoreDropdowns(false)
+                        setShowAddAsset(false)
+
+
+                    }} variant="contained"> {editData ? "Edit" : "Save"} </Button>
             </div>
         </div>
     );
 }
 
 export function DisplayForm() {
-    const { selectVal, setSelectVal, moreDropdowns, setMoreDropdowns, token , editData} =
+    const { selectVal, setSelectVal, moreDropdowns, setMoreDropdowns, token, editData, selectKey } =
         useGlobally();
     const [showClient, setShowClient] = useState(false);
     const [data, setData] = useState({ AssetType: selectVal });
@@ -643,6 +689,40 @@ export function DisplayForm() {
             });
     };
 
+
+    const handleUpdate = () => {
+
+        try {
+            fetch('https://devassetapi.remotestate.com/asset-management/user/asset/', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token,
+                },
+                body: JSON.stringify({ ...data, "id": selectKey }),
+            })
+            setData({})
+            setSelectVal("None")
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    useEffect(() => {
+        fetch('https://devassetapi.remotestate.com/asset-management/user/asset/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            }
+        }
+
+        )
+    }, [data])
+
+    
     if (selectVal === "laptop") {
         return (
             <DisplayLaptopForm
@@ -655,6 +735,7 @@ export function DisplayForm() {
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
                 editData={editData}
+                handleUpdate={handleUpdate}
             />
         );
     }
@@ -669,6 +750,7 @@ export function DisplayForm() {
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
                 editData={editData}
+                handleUpdate={handleUpdate}
             />
         );
     }
@@ -683,6 +765,7 @@ export function DisplayForm() {
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
                 editData={editData}
+                handleUpdate={handleUpdate}
 
             />
         );
@@ -698,6 +781,7 @@ export function DisplayForm() {
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
                 editData={editData}
+                handleUpdate={handleUpdate}
 
             />
         );
@@ -712,6 +796,7 @@ export function DisplayForm() {
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
                 editData={editData}
+                handleUpdate={handleUpdate}
 
             />
         );
@@ -726,6 +811,7 @@ export function DisplayForm() {
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
                 editData={editData}
+                handleUpdate={handleUpdate}
 
             />
         );

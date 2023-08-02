@@ -56,7 +56,7 @@ export function AccessToken({ children }) {
     //for assets data
 
     useEffect(() => {
-        async function fetchData() {
+         async function fetchData() {
             try {
                 var params = {
                     name: searchInput
