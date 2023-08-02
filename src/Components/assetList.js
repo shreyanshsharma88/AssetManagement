@@ -9,19 +9,70 @@ import { DisplayForm } from "./modals/addMoreDropdowns";
 import ToggleButton from '@mui/material/ToggleButton';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { HandleDelete } from "./handleAction";
 
 
 
 
 function ActionBox() {
+
+    const { showDelelte, setShowDelete, setAction, setShowAddAsset, setMoreDropdowns, token, editData, setEditData, selectKey, selectVal } = useGlobally();
+
+    async function fetchData() {
+        try {
+            var params = {
+                assetId: selectKey,
+                assetType: selectVal
+            }
+            const res = await fetch(`https://devassetapi.remotestate.com/asset-management/user/asset/specifications?${new URLSearchParams(params).toString()}`,
+
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': token,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            if (!res.ok) {
+                throw new Error('not available');
+            }
+            const dataFromJSON = await res.json();
+            setEditData(dataFromJSON)
+            
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
     return (
         <div className="actionBox">
-            <div className="edit-delete"  style={{display:'flex', color: 'green', fontWeight: '400' }}>
-                <CreateIcon fontSize="small"/>
+            <div
+                onClick={
+                    () => {
+                        fetchData();
+                        setShowAddAsset(true);
+                        setMoreDropdowns(true)
+                    }
+                }
+                className="edit-delete" style={{ display: 'flex', color: 'green', fontWeight: '400' }}>
+                <CreateIcon fontSize="small" />
                 Edit
             </div>
-            <div className="edit-delete" style={{ display:'flex',color: 'red', fontWeight: '400' }}>
-                <DeleteIcon fontSize="small"/>
+
+
+            <div onClick={() => {
+                if (showDelelte) {
+                    setShowDelete(false)
+                }
+                else {
+                    setShowDelete(true)
+                }
+                setAction(false)
+            }} className="edit-delete" style={{ display: 'flex', color: 'red', fontWeight: '400' }}>
+                <DeleteIcon
+
+                    fontSize="small" />
                 Delete
             </div>
 
@@ -35,8 +86,10 @@ export function AddAssetOption({ setShowAddAsset, moreDropdowns, setMoreDropdown
             <DisplayForm />
         )
     }
+    const { setAction } = useGlobally()
+    const { showDelelte } = useGlobally()
+    console.log(showDelelte)
     return (
-
         <div className="addAssetBox">
 
             <div >
@@ -45,16 +98,19 @@ export function AddAssetOption({ setShowAddAsset, moreDropdowns, setMoreDropdown
                 <CancelIcon style={{ float: 'right', padding: '12px' }} onClick={() => {
                     setShowAddAsset(false)
                     setMoreDropdowns(false)
+                    setAction(false)
                 }} />
             </div>
             <div style={{ display: 'grid' }}>
                 <div>Assign Asset</div>
-                <select onChange={(e) => {
-                    setSelectVal(e.target.value)
-                    setMoreDropdowns(true)
-                }} className="addAssetDropdown">
+                <select
+                    value={selectVal}
+                    onChange={(e) => {
+                        setSelectVal(e.target.value)
+                        setMoreDropdowns(true)
+                    }} className="addAssetDropdown">
 
-                    <option hidden value="">None</option>
+                    <option value="">None</option>
                     <option value="laptop">Laptop</option>
                     <option value="mouse">Mouse</option>
                     <option value="pen drive">Pen Drive</option>
@@ -64,17 +120,19 @@ export function AddAssetOption({ setShowAddAsset, moreDropdowns, setMoreDropdown
                 </select>
                 {moreDropdowns && <MoreDropdowns />}
             </div>
+
         </div>
 
     )
 }
 
+
 function DisplayAssets({ assetsData, setAssetsData, action, setAction, selectKey, setSelectKey }) {
+
+    const { setShowDelete, setSelectVal } = useGlobally();
+
     return (
-        <div style={{
-            // overflow: 'scroll',
-            // maxHeight: '500px'
-        }} >
+        <div style={{}} >
             <table className="tableBody">
                 <thead className="assetHeader">
                     <tr>
@@ -87,9 +145,6 @@ function DisplayAssets({ assetsData, setAssetsData, action, setAction, selectKey
                         <th>Warranty Expires</th>
                         <th>Assigned To</th>
                         <th>Action</th>
-
-
-
                     </tr>
 
                 </thead>
@@ -98,13 +153,13 @@ function DisplayAssets({ assetsData, setAssetsData, action, setAction, selectKey
                         return (<>
                             <tr key={item.id} >
 
-                                <td>{item.brand}</td>
+                                <td style={{color:'blue', textDecoration:'underline'}}>{item.brand}</td>
 
                                 <td>{item.model}</td>
 
                                 <td>{item.serialNo}</td>
 
-                                <td>{item.AssetType}</td>
+                                <td style={{backgroundColor:'#EBF0FA', color:'blue'}}>{item.AssetType}</td>
 
                                 <td>{item.purchasedDate}</td>
 
@@ -117,23 +172,36 @@ function DisplayAssets({ assetsData, setAssetsData, action, setAction, selectKey
 
 
                                 <td style={{ display: 'flex' }}>
-                                {action && selectKey === item.id && <ActionBox />}
-                                    
+
+
+                                    {action && selectKey === item.id && <ActionBox />}
+
                                     <ToggleButton
                                         sx={{ width: '50px', height: '50px', zIndex: '1' }}
                                         onClick={() => {
+
                                             console.log(item.id)
                                             if (action) {
-                                                setAction(false)
+                                                if (selectKey == item.id) {
+
+                                                    setAction(false)
+                                                    setShowDelete(false)
+                                                }
                                             }
                                             else {
                                                 setAction(true)
+                                                setShowDelete(false)
                                             }
+
+
+                                            setSelectVal(item.AssetType)
+                                            setShowDelete(false)
                                             setSelectKey(item.id)
                                         }} value="web">...</ToggleButton>
                                 </td>
 
                             </tr>
+                            <div style={{height:'20px'}}></div>
 
                         </>
                         )
@@ -145,7 +213,8 @@ function DisplayAssets({ assetsData, setAssetsData, action, setAction, selectKey
 }
 
 function MakeAssetTable({ searchInput, setSearchInput, assetsData, setAssetsData, setShowAddAsset, showAddAsset, setMoreDropdowns, action, setAction, selectKey, setSelectKey }) {
-console.log(selectKey)
+    console.log(selectKey)
+    const{setEditData, setSelectVal} = useGlobally()
     return (
         <div className="assetList">
 
@@ -205,6 +274,8 @@ console.log(selectKey)
                     </fieldset>
 
                     <div onClick={() => {
+                        setEditData()
+                        setSelectVal('')
                         setMoreDropdowns(false)
                         if (showAddAsset) {
                             setShowAddAsset(false)
@@ -228,11 +299,9 @@ console.log(selectKey)
 
 
 export function AssetList() {
-    const [showAddAsset, setShowAddAsset] = useState(false);
-    const [action, setAction] = useState(false)
-    const [selectKey, setSelectKey] = useState('')
-    const { assetsData, setAssetsData, searchInput, setSearchInput, selectVal, setSelectVal, moreDropdowns, setMoreDropdowns } = useGlobally();
-
+    const { editData, setEditData, token } = useGlobally()
+    const { assetsData, setAssetsData, searchInput, setSearchInput, selectVal, setSelectVal, moreDropdowns, setMoreDropdowns, selectKey, setSelectKey, action, setAction, showAddAsset, setShowAddAsset } = useGlobally();
+    const { showDelelte } = useGlobally()
     if (!assetsData) {
         return (
             <div>
@@ -242,12 +311,10 @@ export function AssetList() {
         )
     }
 
-    console.log(selectVal)
     return (
         <div>
             <Nav />
-
-
+            {/* <HandleDelete/> */}
             <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                 <MakeAssetTable searchInput={searchInput} setSearchInput={setSearchInput} assetsData={assetsData} setAssetsData={setAssetsData} setShowAddAsset={setShowAddAsset} showAddAsset={showAddAsset} setMoreDropdowns={setMoreDropdowns} action={action} setAction={setAction} selectKey={selectKey} setSelectKey={setSelectKey} />
@@ -255,6 +322,7 @@ export function AssetList() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '-450px' }}>
 
                 {showAddAsset && <AddAssetOption setShowAddAsset={setShowAddAsset} moreDropdowns={moreDropdowns} setMoreDropdowns={setMoreDropdowns} selectVal={selectVal} setSelectVal={setSelectVal} />}
+                {showDelelte && <HandleDelete />}
             </div>
 
         </div>

@@ -22,7 +22,8 @@ function DisplayLaptopForm({
     showClient,
     setShowClient,
     handleInputChange,
-    handleSubmit
+    handleSubmit,
+    editData
 }) {
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
@@ -30,7 +31,7 @@ function DisplayLaptopForm({
                 <div className="commonDiv">
                     <div style={{ float: "left" }}>
                         <div>Owned By</div>
-                        <select name="ownedBy" onChange={handleInputChange}>
+                        <select  name="ownedBy" onChange={handleInputChange}>
                             <option value="" hidden>None</option>
                             <option value='remote_state' onClick={() => setShowClient(false)}>RemoteState</option>
                             <option value="client" onClick={() => setShowClient(true)}>Client</option>
@@ -43,6 +44,7 @@ function DisplayLaptopForm({
                     <div>
                         <div>Make</div>
                         <input
+                            value={editData?editData[0].brand : ""}
                             name="brand"
                             placeholder="enter brand name"
                             type="text"
@@ -152,7 +154,8 @@ function DisplayMouseForm({
     showClient,
     setShowClient,
     handleInputChange,
-    handleSubmit
+    handleSubmit,
+    editData
 }) {
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
@@ -232,7 +235,8 @@ function DisplayPendriveForm({
     showClient,
     setShowClient,
     handleInputChange,
-    handleSubmit
+    handleSubmit,
+    editData
 }) {
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
@@ -324,7 +328,8 @@ function DisplayHarddiskForm({
     showClient,
     setShowClient,
     handleInputChange,
-    handleSubmit
+    handleSubmit,
+    editData
 }) {
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
@@ -416,7 +421,8 @@ function DisplayMobileForm({
     showClient,
     setShowClient,
     handleInputChange,
-    handleSubmit
+    handleSubmit,
+    editData
 }) {
     return (
         <div style={{ float: "left", maxHeight: "600px", overflow: "scroll" }}>
@@ -528,7 +534,8 @@ function DisplaySIMForm({
     showClient,
     setShowClient,
     handleInputChange,
-    handleSubmit
+    handleSubmit,
+    editData
 
 }) {
     return (
@@ -594,11 +601,11 @@ function DisplaySIMForm({
 }
 
 export function DisplayForm() {
-    const { selectVal, setSelectVal, moreDropdowns, setMoreDropdowns, token } =
+    const { selectVal, setSelectVal, moreDropdowns, setMoreDropdowns, token , editData} =
         useGlobally();
     const [showClient, setShowClient] = useState(false);
     const [data, setData] = useState({ AssetType: selectVal });
-    console.log(data);
+    //console.log(data);
 
 
     const handleInputChange = (e) => {
@@ -647,6 +654,7 @@ export function DisplayForm() {
                 setShowClient={setShowClient}
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
+                editData={editData}
             />
         );
     }
@@ -660,6 +668,7 @@ export function DisplayForm() {
                 setShowClient={setShowClient}
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
+                editData={editData}
             />
         );
     }
@@ -673,6 +682,7 @@ export function DisplayForm() {
                 setShowClient={setShowClient}
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
+                editData={editData}
 
             />
         );
@@ -687,6 +697,7 @@ export function DisplayForm() {
                 setShowClient={setShowClient}
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
+                editData={editData}
 
             />
         );
@@ -700,6 +711,7 @@ export function DisplayForm() {
                 setShowClient={setShowClient}
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
+                editData={editData}
 
             />
         );
@@ -713,6 +725,7 @@ export function DisplayForm() {
                 setShowClient={setShowClient}
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
+                editData={editData}
 
             />
         );
