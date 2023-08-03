@@ -6,6 +6,7 @@ import { AccessToken } from './Components/globalToken'
 import { AddAssetOption, AssetList } from './Components/assetList';
 import { useState } from 'react';
 import { Nav } from './Components/navBar';
+import { TestForms } from './Components/modals/useForm';
 function App() {
   return (
     <div className="App">
@@ -17,6 +18,7 @@ function App() {
           <Route path='/dashboard/assetList' element={<AssetList />}></Route>
         </Routes>
       </AccessToken>
+      {/* <TestForms/> */}
       
     </div>
   );

@@ -101,7 +101,6 @@ export function Dashboard() {
                     <MakeTable itemImage={mobileIcon} item={'Mobile'} quantity={data.mobileQuantity} />
                     <MakeTable itemImage={simIcon} item={'SIM Card'} quantity={data.simQuantity} />
                 </div>
-                <button onClick={ () => {} }>add another asset</button>
             </div>
         )
     }

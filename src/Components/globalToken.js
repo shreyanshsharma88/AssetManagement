@@ -1,10 +1,11 @@
 import { createContext, useState, useContext } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const globalTokenContext = createContext();
 
 export function AccessToken({ children }) {
-    const [token, setToken] = useState('');
+    const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token'):'');
     const [data, setData] = useState();
     const [assetsData, setAssetsData] = useState();
     const [searchInput, setSearchInput] = useState('');
@@ -52,6 +53,13 @@ export function AccessToken({ children }) {
             setToken(storedToken);
         }
     }, []);
+
+const navigate= useNavigate('')
+    useEffect(()=>{
+        if(!token){
+            navigate('/')
+        }
+    },[token])
 
     //for assets data
 

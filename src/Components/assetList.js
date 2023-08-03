@@ -55,15 +55,12 @@ function ActionBox() {
                         setMoreDropdowns(true);
                     } catch (error) {
                         console.log(error)
-                        // Handle error if needed
                     }
                 }}
                 className="edit-delete" style={{ display: 'flex', color: 'green', fontWeight: '400' }}>
                 <CreateIcon fontSize="small" />
                 Edit
             </div>
-
-
             <div onClick={() => {
                 if (showDelelte) {
                     setShowDelete(false)
