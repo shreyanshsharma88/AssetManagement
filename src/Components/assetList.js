@@ -148,6 +148,7 @@ function DisplayAssets({ assetsData, setAssetsData, action, setAction, selectKey
                     </tr>
 
                 </thead>
+                <></>
                 <tbody>
                     {assetsData.map((item) => {
                         return (<>
